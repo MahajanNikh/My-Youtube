@@ -111,7 +111,7 @@ const loginUser = asyncHandler(async (req, res) => {
 
   const { email, username, password } = req.body;
 
-  if (!email || !username) {
+  if (!email && !username) {
     throw new ApiError(400, "username or email required");
   }
 
@@ -134,7 +134,7 @@ const loginUser = asyncHandler(async (req, res) => {
   );
 
   const loggdInUser = await User.findById(user._id).select(
-    "-password , -refreshToken"
+    "-password -refreshToken"
   );
 
   // by Using this the cookies can only be modified in server only not by front-end
