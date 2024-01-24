@@ -166,8 +166,8 @@ const logoutUser = asyncHandler(async (req, res) => {
   await User.findByIdAndUpdate(
     req.user._id,
     {
-      $set: {
-        refreshToken: undefined,
+      $unset: {
+        refreshToken: 1, //This removes The filed of the Document
       },
     },
     {
@@ -340,7 +340,7 @@ const updateUserCoverImage = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, user, "Cover Image Updated Successfully"));
 });
 
-//Ageregation Pipeline 
+//Ageregation Pipeline
 const getUserChannelProfile = asyncHandler(async (req, res) => {
   const { username } = req.params;
 
